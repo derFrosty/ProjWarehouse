@@ -6,13 +6,16 @@ import java.util.List;
 
 public class WarehouseProblemForSearch<S extends WarehouseState> extends Problem<S> {
 
-    //TODO this class might require the definition of additional methods and/or attributes
+    private Cell goalPosition;
 
     public WarehouseProblemForSearch(S initialWarehouseState, Cell goalPosition) {
         super(initialWarehouseState);
 
-        //TODO
-        throw new UnsupportedOperationException("Not implemented yet.");
+        this.goalPosition = goalPosition;
+    }
+
+    public Cell getGoalPosition() {
+        return goalPosition;
     }
 
     @Override
