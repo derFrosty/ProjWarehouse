@@ -77,23 +77,19 @@ public class WarehouseState extends State implements Cloneable {
 
 
     public boolean canMoveUp() {
-        //TODO
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return (lineAgent != 0 && (matrix[lineAgent-1][columnAgent]!=Properties.SHELF));
     }
 
     public boolean canMoveRight() {
-        //TODO
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return (columnAgent != matrix.length-1 && (matrix[lineAgent][columnAgent+1]!=Properties.SHELF));
     }
 
     public boolean canMoveDown() {
-        //TODO
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return (lineAgent != matrix.length-1 && (matrix[lineAgent+1][columnAgent]!=Properties.SHELF));
     }
 
     public boolean canMoveLeft() {
-        //TODO
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return (columnAgent != 0 && (matrix[lineAgent][columnAgent-1]!=Properties.SHELF));
     }
 
     public void moveUp() {
