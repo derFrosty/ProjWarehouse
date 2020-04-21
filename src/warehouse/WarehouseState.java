@@ -16,11 +16,50 @@ public class WarehouseState extends State implements Cloneable {
     private int lineExit;
     private int columnExit;
     private int steps;
+    private int numShelves = 0;
 
     public WarehouseState(int[][] matrix) {
-        //TODO
-        throw new UnsupportedOperationException("Not implemented yet.");
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                if(matrix[i][j] == Properties.AGENT){
+                    lineExit = lineAgent = i;
+                    columnExit = columnAgent = j;
+                }
+                if(matrix[i][j] == Properties.SHELF){
+                    numShelves++;
+                }
+            }
+        }
     }
+
+    public WarehouseState(int[][] matrix, int lineAgent, int columnAgent, int lineExit, int columnExit, int numShelves) {
+
+        this.matrix = new int[matrix.length][matrix.length];
+
+        for (int i = 0; i < matrix.length; i++) {
+            System.arraycopy(matrix[i],0,this.matrix[i],0,matrix[i].length);
+        }
+
+        this.lineAgent = lineAgent;
+        this.columnAgent = columnAgent;
+        this.lineExit = lineExit;
+        this.columnExit = columnExit;
+        this.numShelves = numShelves;
+    }
+
+    public int getLineExit() {
+        return lineExit;
+    }
+
+    public int getColumnExit() {
+        return columnExit;
+    }
+
+    public int getNumShelves() {
+        return numShelves;
+    }
+
+
 
     public void executeAction(Action action) {
         action.execute(this);
