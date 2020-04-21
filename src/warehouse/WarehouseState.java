@@ -16,23 +16,23 @@ public class WarehouseState extends State implements Cloneable {
     private int lineExit;
     private int columnExit;
     private int steps;
-    private int numShelves = 0;
 
     public WarehouseState(int[][] matrix) {
+        this.matrix = new int[matrix.length][matrix.length];
+
+
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
+                this.matrix[i][j] = matrix[i][j];
                 if(matrix[i][j] == Properties.AGENT){
                     lineExit = lineAgent = i;
                     columnExit = columnAgent = j;
-                }
-                if(matrix[i][j] == Properties.SHELF){
-                    numShelves++;
                 }
             }
         }
     }
 
-    public WarehouseState(int[][] matrix, int lineAgent, int columnAgent, int lineExit, int columnExit, int numShelves) {
+    public WarehouseState(int[][] matrix, int lineAgent, int columnAgent, int lineExit, int columnExit) {
 
         this.matrix = new int[matrix.length][matrix.length];
 
@@ -44,7 +44,6 @@ public class WarehouseState extends State implements Cloneable {
         this.columnAgent = columnAgent;
         this.lineExit = lineExit;
         this.columnExit = columnExit;
-        this.numShelves = numShelves;
     }
 
     public int getLineExit() {
@@ -55,10 +54,13 @@ public class WarehouseState extends State implements Cloneable {
         return columnExit;
     }
 
-    public int getNumShelves() {
-        return numShelves;
+    public double compute (int lineGoal, int columnGoal){
+        //heuristica
+        if(lineGoal == lineExit && columnGoal == columnExit){
+            return Math.abs(lineAgent-lineGoal) + Math.abs(columnAgent-(columnGoal));
+        }
+        return Math.abs(lineAgent-lineGoal) + Math.abs(columnAgent-(columnGoal+1));
     }
-
 
 
     public void executeAction(Action action) {
@@ -200,7 +202,7 @@ public class WarehouseState extends State implements Cloneable {
 
     @Override
     public WarehouseState clone() {
-        return new WarehouseState(matrix,lineAgent,columnAgent,lineExit,columnExit,numShelves);
+        return new WarehouseState(matrix,lineAgent,columnAgent,lineExit,columnExit);
     }
 
     private final ArrayList<EnvironmentListener> listeners = new ArrayList<>();
