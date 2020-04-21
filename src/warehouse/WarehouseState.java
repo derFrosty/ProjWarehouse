@@ -119,8 +119,12 @@ public class WarehouseState extends State implements Cloneable {
     }
 
     public void setCellAgent(int line, int column) {
-        //TODO
-        throw new UnsupportedOperationException("Not implemented yet.");
+        //mudamos a posição do agente
+        matrix[lineAgent][columnAgent] = Properties.EMPTY;
+        matrix[line][column] = Properties.AGENT;
+
+        lineAgent = line;
+        columnAgent = column;
     }
 
     public int getSteps() {
