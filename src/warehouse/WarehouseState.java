@@ -194,8 +194,7 @@ public class WarehouseState extends State implements Cloneable {
 
     @Override
     public WarehouseState clone() {
-        //TODO
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return new WarehouseState(matrix,lineAgent,columnAgent,lineExit,columnExit,numShelves);
     }
 
     private final ArrayList<EnvironmentListener> listeners = new ArrayList<>();
