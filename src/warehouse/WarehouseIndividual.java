@@ -1,6 +1,9 @@
 package warehouse;
 
+import ga.GeneticAlgorithm;
 import ga.IntVectorIndividual;
+
+import java.util.Arrays;
 
 public class WarehouseIndividual extends IntVectorIndividual<WarehouseProblemForGA, WarehouseIndividual> {
 
@@ -8,8 +11,26 @@ public class WarehouseIndividual extends IntVectorIndividual<WarehouseProblemFor
 
     public WarehouseIndividual(WarehouseProblemForGA problem, int size) {
         super(problem, size);
-        //TODO
-        throw new UnsupportedOperationException("Not implemented yet.");
+
+        boolean f;
+        int j;
+        //geração do genoma aleatoriamente
+        for (int i = 0; i < size; i++) {
+            do {
+                j = GeneticAlgorithm.random.nextInt(size) + 1;
+                f = false;
+
+                for (int k = 0; k < i; k++) {
+                    //se o número já estiver no genoma, a variavel passa a true e volta a gerar outro número
+                    if (genome[k] == j)
+                        f = true;
+                }
+            } while (f);
+
+            genome[i] = j;
+        }
+        System.out.println(Arrays.toString(genome));
+
     }
 
     public WarehouseIndividual(WarehouseIndividual original) {
@@ -18,12 +39,18 @@ public class WarehouseIndividual extends IntVectorIndividual<WarehouseProblemFor
 
     @Override
     public double computeFitness() {
-        //TODO
-        throw new UnsupportedOperationException("Not implemented yet.");
+
+        for (Request r : problem.getRequests()) {
+
+        }
+
+        return fitness;
     }
 
     public static int getShelfPos(int[] genome, int value) {
         //TODO
+        //procurar o valor dentro do genoma
+        //devolver a posição (no genoma)
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
