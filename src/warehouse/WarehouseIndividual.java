@@ -7,8 +7,6 @@ import java.util.Arrays;
 
 public class WarehouseIndividual extends IntVectorIndividual<WarehouseProblemForGA, WarehouseIndividual> {
 
-    //TODO this class might require the definition of additional methods and/or attributes
-
     public WarehouseIndividual(WarehouseProblemForGA problem, int size) {
         super(problem, size);
 
@@ -42,24 +40,66 @@ public class WarehouseIndividual extends IntVectorIndividual<WarehouseProblemFor
     @Override
     public double computeFitness() {
 
+        fitness = 0;
         for (Request r : problem.getRequests()) {
 
-        }
+            Cell cell1 = problem.getCellAgent(); //celula do agente
+            Cell cell2 = problem.getShelves().get(getShelfPos(genome,r.getRequest()[0]));
 
+            //distância do Agente à primeira prateleira do pedido
+            for (Pair p : problem.getPairs()) {
+                if ((p.getCell1() == cell1 && p.getCell2() == cell2) ) {
+                    fitness += p.getValue();
+                    break;
+                }
+            }
+
+            for (int i = 0; i < r.getRequest().length-1; i++) {
+                cell1 = cell2;
+                cell2=problem.getShelves().get(getShelfPos(genome,r.getRequest()[i]));
+
+                //distância do entre prateleiras do pedido
+                for (Pair p : problem.getPairs()) {
+                    if ((p.getCell1() == cell1 && p.getCell2() == cell2)) {
+                        fitness += p.getValue();
+                        break;
+                    }
+                }
+            }
+
+            cell1 = cell2;
+            cell2 = problem.getExit();
+
+            //distância da última prateleira à porta
+            for (Pair p : problem.getPairs()) {
+                if ((p.getCell1() == cell1 && p.getCell2() == cell2) ) {
+                    fitness += p.getValue();
+                    break;
+                }
+            }
+        }
         return fitness;
     }
 
     public static int getShelfPos(int[] genome, int value) {
-        //TODO
-        //procurar o valor dentro do genoma
-        //devolver a posição (no genoma)
-        throw new UnsupportedOperationException("Not implemented yet.");
+        int i = 0;
+
+        while(value!=genome[i]){
+            i++;
+        }
+        return i;
     }
 
     //Return the product Id if the shelf in cell [line, column] has some product and 0 otherwise
-    public int getProductInShelf(int line, int column){
-        //TODO
-        throw new UnsupportedOperationException("Not implemented yet.");
+    public int getProductInShelf(int line, int column) {
+        int i=0;
+        for (Cell c : problem.getShelves()) {
+            if (c.getLine() == line && c.getColumn() == column){
+                return genome[i];
+            }
+            i++;
+        }
+        return 0;
     }
 
     @Override
