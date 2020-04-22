@@ -29,7 +29,7 @@ public class WarehouseIndividual extends IntVectorIndividual<WarehouseProblemFor
 
             genome[i] = j;
         }
-        System.out.println(Arrays.toString(genome));
+        //System.out.println(Arrays.toString(genome));
 
     }
 
