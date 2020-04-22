@@ -1,5 +1,5 @@
 .idea/*
-out/artifacts/ProjWarehouse_jar/*
+out/*
 statistic_average_fitness.xls
 statistic_best_per_experiment.txt
 statistic_best_per_experiment_fitness.xls
