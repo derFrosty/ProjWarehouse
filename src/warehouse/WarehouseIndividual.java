@@ -22,8 +22,10 @@ public class WarehouseIndividual extends IntVectorIndividual<WarehouseProblemFor
 
                 for (int k = 0; k < i; k++) {
                     //se o número já estiver no genoma, a variavel passa a true e volta a gerar outro número
-                    if (genome[k] == j)
+                    if (genome[k] == j) {
                         f = true;
+                        break;
+                    }
                 }
             } while (f);
 
