@@ -48,31 +48,31 @@ public class WarehouseIndividual extends IntVectorIndividual<WarehouseProblemFor
 
             //distância do Agente à primeira prateleira do pedido
             for (Pair p : problem.getPairs()) {
-                if ((p.getCell1() == cell1 && p.getCell2() == cell2) ) {
+                if ((p.getCell1().equals(cell1) && p.getCell2().equals(cell2)) || (p.getCell1().equals(cell2) && p.getCell2().equals(cell1))) {
                     fitness += p.getValue();
                     break;
                 }
             }
 
             for (int i = 0; i < r.getRequest().length-1; i++) {
-                cell1 = cell2;
-                cell2=problem.getShelves().get(getShelfPos(genome,r.getRequest()[i]));
+                cell1 = problem.getShelves().get(getShelfPos(genome,r.getRequest()[i]));
+                cell2= problem.getShelves().get(getShelfPos(genome,r.getRequest()[i+1]));
 
                 //distância do entre prateleiras do pedido
                 for (Pair p : problem.getPairs()) {
-                    if ((p.getCell1() == cell1 && p.getCell2() == cell2)) {
+                    if ((p.getCell1().equals(cell1) && p.getCell2().equals(cell2)) || (p.getCell1().equals(cell2) && p.getCell2().equals(cell1))) {
                         fitness += p.getValue();
                         break;
                     }
                 }
             }
 
-            cell1 = cell2;
+            cell1 = problem.getShelves().get(getShelfPos(genome,r.getRequest()[r.getRequest().length-1]));
             cell2 = problem.getExit();
 
             //distância da última prateleira à porta
             for (Pair p : problem.getPairs()) {
-                if ((p.getCell1() == cell1 && p.getCell2() == cell2) ) {
+                if ((p.getCell1().equals(cell1) && p.getCell2().equals(cell2)) || (p.getCell1().equals(cell2) && p.getCell2().equals(cell1))) {
                     fitness += p.getValue();
                     break;
                 }
