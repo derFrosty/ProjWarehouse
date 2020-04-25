@@ -13,7 +13,7 @@ public class StatisticBestInRun<I extends Individual, P extends Problem<I>> impl
     public StatisticBestInRun(String experimentHeader) {
         File file = new File("statistic_best_per_experiment_fitness.xls");
         if(!file.exists()){
-            utils.FileOperations.appendToTextFile("statistic_best_per_experiment_fitness.xls", experimentHeader + "\t" + "Fitness:" + "\r\n");
+            utils.FileOperations.appendToTextFile("statistic_best_per_experiment_fitness.xls", experimentHeader + "\t" + "Fitness:" + "\t" + "Elapsed Time (in minutes):"+"\r\n");
         }
     }
 
@@ -36,7 +36,11 @@ public class StatisticBestInRun<I extends Individual, P extends Problem<I>> impl
         String experimentHeader = ((Experiment) e.getSource()).getExperimentHeader();
         String experimentConfigurationValues = ((Experiment) e.getSource()).getExperimentValues();
 
-        utils.FileOperations.appendToTextFile("statistic_best_per_experiment_fitness.xls", experimentConfigurationValues + "\t" + bestInExperiment.getFitness() + "\r\n");
-        utils.FileOperations.appendToTextFile("statistic_best_per_experiment.txt", "\r\n\r\n" + experimentTextualRepresentation + "\r\n" + bestInExperiment);
+        double timeMiliSec = e.getSource().getElapsedTime();
+        double timeMin = Math.floor(timeMiliSec/1000/60);
+        double timeSec = ((timeMiliSec/1000/60) - timeMin)*60;
+
+        utils.FileOperations.appendToTextFile("statistic_best_per_experiment_fitness.xls", experimentConfigurationValues + "\t" + bestInExperiment.getFitness() + "\t" + String.format("%.0f", timeMin) + ":" + String.format("%.0f", timeSec) + "\r\n");
+        utils.FileOperations.appendToTextFile("statistic_best_per_experiment.txt", "\r\n\r\n" + experimentTextualRepresentation + "\r\n" + bestInExperiment + "\r\n" + "Elapsed Time (in minutes) => " + String.format("%.0f", timeMin) + ":" + String.format("%.0f", timeSec));
     }
 }

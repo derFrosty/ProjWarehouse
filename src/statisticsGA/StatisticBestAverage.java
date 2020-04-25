@@ -16,7 +16,7 @@ public class StatisticBestAverage<E extends Individual, P extends Problem<E>> im
         values = new double[numRuns];
         File file = new File("statistic_average_fitness.xls");
         if(!file.exists()){
-            utils.FileOperations.appendToTextFile("statistic_average_fitness.xls", experimentHeader + "\t" + "Average:" + "\t" + "StdDev:" + "\t"+ "Elapsed Time (in minutes)"+"\r\n");
+            utils.FileOperations.appendToTextFile("statistic_average_fitness.xls", experimentHeader + "\t" + "Average:" + "\t" + "StdDev:" + "\t"+ "Elapsed Time (in minutes):"+"\r\n");
         }
     }
 
