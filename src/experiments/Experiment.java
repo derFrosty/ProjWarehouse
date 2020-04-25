@@ -15,6 +15,8 @@ public class Experiment <E extends ExperimentsFactory, P extends Problem>{
     private final String experimentTextualRepresentation;
     private final String experimentHeader;
     private final String experimentValues;
+    private double start;
+    private double elapsedTime;
 
     public Experiment(
             E factory,
@@ -29,14 +31,22 @@ public class Experiment <E extends ExperimentsFactory, P extends Problem>{
         this.experimentTextualRepresentation = experimentTextualRepresentation;
         this.experimentHeader = experimentHeader;
         this.experimentValues = experimentValues;
+        this.start = 0;
+        this.elapsedTime = 0;
     }
 
     public void run() {
+        start = System.currentTimeMillis();
         for (int run = 0; run < numRuns; run++) {
             ga = factory.generateGAInstance(run + 1);
             ga.run(problem);
         }
+        elapsedTime = System.currentTimeMillis() - start;
         fireExperimentEnded();
+    }
+
+    public double getElapsedTime() {
+        return elapsedTime;
     }
 
     public String getExperimentTextualRepresentation() {
