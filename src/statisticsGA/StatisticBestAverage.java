@@ -16,7 +16,7 @@ public class StatisticBestAverage<E extends Individual, P extends Problem<E>> im
         values = new double[numRuns];
         File file = new File("statistic_average_fitness.xls");
         if(!file.exists()){
-            utils.FileOperations.appendToTextFile("statistic_average_fitness.xls", experimentHeader + "\t" + "Average:" + "\t" + "StdDev:" + "\r\n");
+            utils.FileOperations.appendToTextFile("statistic_average_fitness.xls", experimentHeader + "\t" + "Average:" + "\t" + "StdDev:" + "\t"+ "Elapsed Time (in minutes)"+"\r\n");
         }
     }
 
@@ -36,7 +36,10 @@ public class StatisticBestAverage<E extends Individual, P extends Problem<E>> im
         double sd = Maths.standardDeviation(values, average);
 
         String experimentConfigurationValues = ((Experiment) e.getSource()).getExperimentValues();
+        double timeMiliSec = e.getSource().getElapsedTime();
+        double timeMin = Math.floor(timeMiliSec/1000/60);
+        double timeSec = ((timeMiliSec/1000/60) - timeMin)*60;
 
-        utils.FileOperations.appendToTextFile("statistic_average_fitness.xls", experimentConfigurationValues + "\t" + average + "\t" + sd + "\r\n");
+        utils.FileOperations.appendToTextFile("statistic_average_fitness.xls", experimentConfigurationValues + "\t" + average + "\t" + sd + "\t" + String.format("%.0f", timeMin) + ":" + String.format("%.0f", timeSec) + "\r\n");
     }
 }
