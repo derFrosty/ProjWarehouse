@@ -4,9 +4,9 @@ import ga.GeneticAlgorithm;
 import ga.IntVectorIndividual;
 import ga.Problem;
 
-public class Mutation2<I extends IntVectorIndividual, P extends Problem<I>> extends Mutation<I, P> {
+public class MutationInversion<I extends IntVectorIndividual, P extends Problem<I>> extends Mutation<I, P> {
 
-    public Mutation2(double probability) {
+    public MutationInversion(double probability) {
         super(probability);
     }
 
@@ -22,10 +22,10 @@ public class Mutation2<I extends IntVectorIndividual, P extends Problem<I>> exte
             cut1 = cut2;
             cut2 = aux;
         }
-        for(int i = cut2; i > cut1 ; i--) {
+        for(int i = cut2-1; i > cut1 ; i--) {
             int aux = ind.getGene(i);
             ind.setGene(i, ind.getGene(cut1));
-            ind.setGene(cut1, ind.getGene(aux));
+            ind.setGene(cut1, aux);
 
             cut1++;
 
