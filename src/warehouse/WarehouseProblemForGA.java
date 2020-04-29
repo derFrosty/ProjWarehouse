@@ -3,6 +3,7 @@ package warehouse;
 import ga.Problem;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class WarehouseProblemForGA implements Problem<WarehouseIndividual> {
@@ -13,6 +14,7 @@ public class WarehouseProblemForGA implements Problem<WarehouseIndividual> {
     private ArrayList<Request> requests;
     private int numProducts;
     private LinkedList<Pair> pairs;
+    private HashMap<Pair, Integer> pairsHash;
 
     public WarehouseProblemForGA(WarehouseAgentSearch agentSearch) {
         this.shelves = agentSearch.getShelves();
@@ -21,7 +23,7 @@ public class WarehouseProblemForGA implements Problem<WarehouseIndividual> {
         this.requests=agentSearch.getRequests();
         this.numProducts = agentSearch.getNumProducts();
         this.pairs =  agentSearch.getPairs();
-
+        this.pairsHash = agentSearch.getPairsHash();
     }
 
     public LinkedList<Cell> getShelves() {
@@ -46,6 +48,10 @@ public class WarehouseProblemForGA implements Problem<WarehouseIndividual> {
 
     public LinkedList<Pair> getPairs() {
         return pairs;
+    }
+
+    public HashMap<Pair, Integer> getPairsHash() {
+        return pairsHash;
     }
 
     @Override

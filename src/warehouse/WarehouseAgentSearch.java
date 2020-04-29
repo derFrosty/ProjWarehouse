@@ -6,6 +6,7 @@ import agentSearch.State;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class WarehouseAgentSearch<S extends State> extends Agent<S> {
@@ -17,6 +18,7 @@ public class WarehouseAgentSearch<S extends State> extends Agent<S> {
     private static ArrayList<Request> requests;
     private static int numProducts;
     private static LinkedList<Pair> pairs;
+    private static HashMap<Pair,Integer> pairsHash;
 
     public WarehouseAgentSearch(S environment) {
         super(environment);
@@ -65,13 +67,18 @@ public class WarehouseAgentSearch<S extends State> extends Agent<S> {
             scanner.nextLine();
         }
         pairs = new LinkedList<>();
-        for (Cell b : shelves) {
-            pairs.add(new Pair(cellAgent, b));
+        pairsHash = new HashMap<>();
+        for (Cell b : shelves) { //adicionar os pares à lista e à hashTable do agente às prateleiras (e por consequência das prateleiras à porta)
+            Pair p = new Pair(cellAgent, b);
+            pairs.add(p);
+            pairsHash.put(p,p.getValue());
         }
 
         for (int i = 0; i < shelves.size() - 1; i++) {
             for (int j = i + 1; j < shelves.size(); j++) {
-                pairs.add(new Pair(shelves.get(i), shelves.get(j)));
+                Pair p = new Pair(shelves.get(i),shelves.get(j));
+                pairs.add(p);
+                pairsHash.put(p,p.getValue());
             }
         }
 
@@ -90,6 +97,10 @@ public class WarehouseAgentSearch<S extends State> extends Agent<S> {
             requests.add(new Request(intitems));
         }
         return matrix;
+    }
+
+    public static HashMap<Pair, Integer> getPairsHash() {
+        return pairsHash;
     }
 
     public static LinkedList<Cell> getShelves() {
