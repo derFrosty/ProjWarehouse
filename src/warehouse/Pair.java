@@ -42,8 +42,10 @@ public class Pair {
         int cell2L = cell2.getLine();
         int cell2C = cell2.getColumn();
 
-        result += prime * (cell1L + cell1C);
-        result += prime * (cell2L + cell2C);
+        result = prime * result + (cell1L);
+        result = prime * result + (cell1C);
+        result = prime * result + (cell2L);
+        result = prime * result + (cell2C);
 
         return result;
     }
@@ -60,5 +62,13 @@ public class Pair {
         if ((cell1 == other.cell1 && cell2 == other.cell2) || (cell1 == other.cell2 && cell2 == other.cell1))
             return true;
         return false;
+    }
+
+    public void setCell1(Cell cell1) {
+        this.cell1 = cell1;
+    }
+
+    public void setCell2(Cell cell2) {
+        this.cell2 = cell2;
     }
 }

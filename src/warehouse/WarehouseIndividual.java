@@ -45,13 +45,20 @@ public class WarehouseIndividual extends IntVectorIndividual<WarehouseProblemFor
 
             Cell cell1 = problem.getCellAgent(); //celula do agente
             Cell cell2 = problem.getShelves().get(getShelfPos(genome,r.getRequest()[0]));
-
+            /**
             //distância do Agente à primeira prateleira do pedido
-            for (Pair p : problem.getPairs()) {
+            for (Pair p : problemblem.get.getPairs()) {
                 if ((p.getCell1().equals(cell1) && p.getCell2().equals(cell2)) || (p.getCell1().equals(cell2) && p.getCell2().equals(cell1))) {
                     fitness += p.getValue();
                     break;
                 }
+            }*/
+            Pair pAux = new Pair(cell1,cell2);
+            Pair pAux2 = new Pair(cell2,cell1);
+            if(problem.getPairsHash().containsKey(pAux.hashCode())){
+                fitness+=problem.getPairsHash().get(pAux.hashCode());
+            }else{
+                fitness+=problem.getPairsHash().get(pAux2.hashCode());
             }
 
             for (int i = 0; i < r.getRequest().length-1; i++) {
@@ -59,24 +66,48 @@ public class WarehouseIndividual extends IntVectorIndividual<WarehouseProblemFor
                 cell2= problem.getShelves().get(getShelfPos(genome,r.getRequest()[i+1]));
 
                 //distância do entre prateleiras do pedido
+                /*
                 for (Pair p : problem.getPairs()) {
                     if ((p.getCell1().equals(cell1) && p.getCell2().equals(cell2)) || (p.getCell1().equals(cell2) && p.getCell2().equals(cell1))) {
                         fitness += p.getValue();
                         break;
                     }
                 }
+                */
+
+                pAux = new Pair(cell1,cell2);
+                pAux2 = new Pair(cell2,cell1);
+                if(problem.getPairsHash().containsKey(pAux.hashCode())){
+                    fitness+=problem.getPairsHash().get(pAux.hashCode());
+                }else{
+                    fitness+=problem.getPairsHash().get(pAux2.hashCode());
+                }
+
             }
+
+
 
             cell1 = problem.getShelves().get(getShelfPos(genome,r.getRequest()[r.getRequest().length-1]));
             cell2 = problem.getExit();
 
             //distância da última prateleira à porta
+            /*
             for (Pair p : problem.getPairs()) {
                 if ((p.getCell1().equals(cell1) && p.getCell2().equals(cell2)) || (p.getCell1().equals(cell2) && p.getCell2().equals(cell1))) {
                     fitness += p.getValue();
                     break;
                 }
             }
+            */
+
+            pAux = new Pair(cell1,cell2);
+            pAux2 = new Pair(cell2,cell1);
+            if(problem.getPairsHash().containsKey(pAux.hashCode())){
+                fitness+=problem.getPairsHash().get(pAux.hashCode());
+            }else{
+                fitness+=problem.getPairsHash().get(pAux2.hashCode());
+            }
+
         }
         return fitness;
     }

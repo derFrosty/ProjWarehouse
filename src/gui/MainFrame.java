@@ -228,7 +228,6 @@ public class MainFrame extends JFrame implements GAListener {
                 public Void doInBackground() {
                     try {
                         LinkedList<Pair> pairs = agentSearch.getPairs();
-                        HashMap<Pair,Integer> pairsHash = agentSearch.getPairsHash();
                         for (Pair p : pairs) {
                             WarehouseState state = ((WarehouseState) agentSearch.getEnvironment()).clone();
                             if (state.getLineAgent()!=p.getCell1().getLine() || state.getColumnAgent()!=p.getCell1().getColumn() )
@@ -238,7 +237,6 @@ public class MainFrame extends JFrame implements GAListener {
                             WarehouseProblemForSearch problem = new WarehouseProblemForSearch(state, p.getCell2());
                             Solution s = agentSearch.solveProblem(problem);
                             p.setValue((int) s.getCost());
-                            pairsHash.replace(p,(int)s.getCost());
 
                         }
                         problemGA = new WarehouseProblemForGA(agentSearch);

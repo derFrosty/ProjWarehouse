@@ -14,7 +14,7 @@ public class WarehouseProblemForGA implements Problem<WarehouseIndividual> {
     private ArrayList<Request> requests;
     private int numProducts;
     private LinkedList<Pair> pairs;
-    private HashMap<Pair, Integer> pairsHash;
+    private HashMap<Integer, Integer> pairsHash;
 
     public WarehouseProblemForGA(WarehouseAgentSearch agentSearch) {
         this.shelves = agentSearch.getShelves();
@@ -23,7 +23,10 @@ public class WarehouseProblemForGA implements Problem<WarehouseIndividual> {
         this.requests=agentSearch.getRequests();
         this.numProducts = agentSearch.getNumProducts();
         this.pairs =  agentSearch.getPairs();
-        this.pairsHash = agentSearch.getPairsHash();
+        this.pairsHash = new HashMap<>();
+        for (Pair p : pairs) {
+            pairsHash.put(p.hashCode(),p.getValue());
+        }
     }
 
     public LinkedList<Cell> getShelves() {
@@ -50,7 +53,7 @@ public class WarehouseProblemForGA implements Problem<WarehouseIndividual> {
         return pairs;
     }
 
-    public HashMap<Pair, Integer> getPairsHash() {
+    public HashMap<Integer, Integer> getPairsHash() {
         return pairsHash;
     }
 
