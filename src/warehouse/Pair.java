@@ -30,4 +30,35 @@ public class Pair {
     public String toString() {
         return cell1.getLine() + "-" + cell1.getColumn() + " / " + cell2.getLine() + "-" + cell2.getColumn() + ": " + value + "\n";
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 17;
+
+        int cell1L = cell1.getLine();
+        int cell1C = cell1.getColumn();
+
+        int cell2L = cell2.getLine();
+        int cell2C = cell2.getColumn();
+
+        result += prime * (cell1L + cell1C);
+        result += prime * (cell2L + cell2C);
+
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Pair other = (Pair) obj;
+        if ((cell1 == other.cell1 && cell2 == other.cell2) || (cell1 == other.cell2 && cell2 == other.cell1))
+            return true;
+        return false;
+    }
 }
