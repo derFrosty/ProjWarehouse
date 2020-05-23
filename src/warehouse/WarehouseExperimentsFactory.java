@@ -57,6 +57,8 @@ public class WarehouseExperimentsFactory extends ExperimentsFactory {
             case "mpx":
                 recombination = new RecombinationMultiPoint<>(recombinationProbability);
                 break;
+            case "cycle":
+                recombination = new RecombinationCycle<>(recombinationProbability);
         }
 
         //MUTATION
