@@ -33,11 +33,14 @@ public class RecombinationPartialMapped<I extends IntVectorIndividual, P extends
         create_Segments(cut1, cut2, ind1, ind2);
         crossOver(child1, ind1);
         crossOver(child2, ind2);
-
+        /*
         for (int i = 0; i < ind1.getNumGenes(); i++) {
             ind1.setGene(i, child1[i]);
             ind2.setGene(i, child2[i]);
         }
+        */
+        System.arraycopy(child1, 0, ind1.getGenome(), 0, child1.length);
+        System.arraycopy(child2, 0, ind2.getGenome(), 0, child2.length);
     }
 
     private boolean check_forDuplicates(int[] offspring, int indexOfElement) {
