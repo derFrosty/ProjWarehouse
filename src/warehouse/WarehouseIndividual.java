@@ -114,7 +114,13 @@ public class WarehouseIndividual extends IntVectorIndividual<WarehouseProblemFor
 
     public static int getShelfPos(int[] genome, int value) {
         int i = 0;
-
+        /*
+        String msg = "";
+        for (int j = 0; j < genome.length; j++) {
+            msg += genome[j];
+        }
+        System.out.println("genome: " + msg +" value: "+ value);
+        */
         while(value!=genome[i]){
             i++;
         }
