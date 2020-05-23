@@ -44,7 +44,7 @@ public class RecombinationCycle<I extends IntVectorIndividual, P extends Problem
 
         while (count <= genome_length) {
 
-            //para encontrar a posição apropriada
+            //para encontrar a posição apropriada para escrever para o filho
             for (int i = 0; i < genome_length; i++) {
                 if (child1[i] == 0) {
                     position = i;
@@ -52,22 +52,24 @@ public class RecombinationCycle<I extends IntVectorIndividual, P extends Problem
                 }
             }
 
+            //verificar se cycle é par ou impar (true = par)
             if (cycle) {
                 while (true) {
+                    //escrever para o filho nessa posição
                     child1[position] = ind1.getGene(position);
                     count++;
 
+                    //passar o valor dessa posição a -1 no ind_aux
                     ind1_aux[position] = -1;
 
+                    //obter a nova posição
                     position = ind2.getIndexof(ind1.getGene(position));
 
+                    //verificar se nesta "nova" posição, o elemento já era -1, e requere um novo cyclo
                     if (ind1_aux[position] == -1) {
                         cycle = false;
                         break;
                     }
-
-
-
                 }
             } else {
                 while (true) {
@@ -82,13 +84,11 @@ public class RecombinationCycle<I extends IntVectorIndividual, P extends Problem
                         cycle = true;
                         break;
                     }
-
-
-
                 }
             }
         }
 
+        //preencher o 2º filho
         for (int i = 0; i < genome_length; i++) {
             if(child1[i] == ind1.getGene(i)){
                 child2[i] = ind2.getGene(i);
