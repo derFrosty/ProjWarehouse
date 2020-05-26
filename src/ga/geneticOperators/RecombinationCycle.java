@@ -98,4 +98,9 @@ public class RecombinationCycle<I extends IntVectorIndividual, P extends Problem
         }
 
     }
+
+    @Override
+    public String toString() {
+        return "Cycle";
+    }
 }
