@@ -20,6 +20,7 @@ public class GeneticAlgorithm<I extends Individual, P extends Problem<I>> {
     private int t;
     private boolean stopped;
     private I bestInRun;
+    private int run;
 
     public GeneticAlgorithm(
             int populationSize,
@@ -126,5 +127,13 @@ public class GeneticAlgorithm<I extends Individual, P extends Problem<I>> {
         for (GAListener listener : listeners) {
             listener.runEnded(e);
         }
+    }
+
+    public int getRun() {
+        return run;
+    }
+
+    public void setRun(int run) {
+        this.run = run;
     }
 }
